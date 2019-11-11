@@ -1,12 +1,22 @@
 const express = require('express');
+const path = require("path");
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load(path.resolve(__dirname, "default.yaml"));
 const app = express();
+require("./database.js");
 const PORT = 3000;
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+const productsRouter = require("./product.router.js");
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
-app.post("/api/register", (req,res)=>{
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.use("/api/v1/products", productsRouter);
+
+app.post("/api/v1/register", (req,res)=>{
   const age = req.body.age;
   console.log(age);
   const username = req.body.username;
