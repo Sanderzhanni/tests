@@ -66,11 +66,7 @@ handleSubmit = (e) =>{
         <h3>
           Lahendus:
         </h3>
-<<<<<<< HEAD
         <form onSubmit={this.handleSubmit}>
-=======
-        <form style={{width: 300}}>
->>>>>>> ffc661be6068de16dcf756d5c6bfeb36f3d54eec
           <div className={"row"}>
             <label htmlFor="username">Username</label>
             <input name="username" type="text" value={this.state.username} onChange={this.handleChange}/>
