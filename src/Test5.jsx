@@ -21,15 +21,16 @@ handleChange = (e) =>{
 }
 
 handleSubmit = (e) =>{
+  console.log(this.state);
   e.preventDefault();
-  fetch("/api/v1/orders/placeOrder", {
+  fetch("/api/v1/orders/", {
       method: "POST",
       body: JSON.stringify(this.state),
       headers: {
           "Content-Type": "application/json"
       },
   })
-  .then( res => res.json())
+  .then( res => {if(!res.ok) throw "bad";})
   .catch(err =>{
       console.log("err", err);
   });
@@ -61,15 +62,15 @@ handleSubmit = (e) =>{
 
         </div>
         <div className="ds">
-          <form className="ds-item style-2" >
+          <form className="ds-item style-2" onSubmit={this.handleSubmit}>
             <h3 className="style-2">Tellimuse vorm</h3>
             <div className={"row"}>
               <label htmlFor="fullName">Kliendi nimi</label>
-              <input name="fullName" type="text" onChange={this.handleChange}/>
+              <input name="fullName" type="text" onChange={this.handleChange} value={this.state.fullName}/>
             </div>
             <div className={"row"}>
               <label htmlFor="burger">Burger</label>
-              <select name="burger" onChange={this.handleChange}>
+              <select name="burger" onChange={this.handleChange} value={this.state.burger}>
                 <option value="">-</option>
                 <option value="megaBurger">Megaburger</option>
                 <option value="baconBurger">Peekoniburger</option>
@@ -78,7 +79,7 @@ handleSubmit = (e) =>{
             </div>
             <div className={"row"}>
               <label htmlFor="drink">Jook</label>
-              <select name="drink" onChange={this.handleChange}>
+              <select name="drink" onChange={this.handleChange} value={this.state.drink}>
                 <option value="">-</option>
                 <option value="coke">Coca-Cola</option>
                 <option value="sprite">Sprite</option>
