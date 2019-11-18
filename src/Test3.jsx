@@ -30,8 +30,9 @@ handleSubmit = (e) =>{
           "Content-Type": "application/json"
       },
   })
+  .then( res => res.json())
   .then( (res) => {
-    this.setState({responseText: res.statusText});
+    this.setState({responseText: res.text()});
   })
   .catch(err =>{
       console.log("err", err);
