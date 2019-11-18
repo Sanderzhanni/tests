@@ -3,6 +3,39 @@ import Orders from "./Orders.jsx";
 // import {toast} from "react-toastify";
 
 class Test5 extends React.PureComponent {
+
+  constructor(props){
+    super(props);
+    this.state = {
+        fullName:"",
+        burger:"",
+        drink:"",
+    };
+}
+
+handleChange = (e) =>{
+  console.log("value", e.target.value);
+  this.setState({
+      [e.target.name]: e.target.value,
+  });
+}
+
+handleSubmit = (e) =>{
+  e.preventDefault();
+  fetch("/api/v1/orders/placeOrder", {
+      method: "POST",
+      body: JSON.stringify(this.state),
+      headers: {
+          "Content-Type": "application/json"
+      },
+  })
+  .then( res => res.json())
+  .catch(err =>{
+      console.log("err", err);
+  });
+}
+
+
   render() {
     return (
       <>
@@ -32,11 +65,11 @@ class Test5 extends React.PureComponent {
             <h3 className="style-2">Tellimuse vorm</h3>
             <div className={"row"}>
               <label htmlFor="fullName">Kliendi nimi</label>
-              <input name="fullName" type="text"/>
+              <input name="fullName" type="text" onChange={this.handleChange}/>
             </div>
             <div className={"row"}>
               <label htmlFor="burger">Burger</label>
-              <select name="burger" >
+              <select name="burger" onChange={this.handleChange}>
                 <option value="">-</option>
                 <option value="megaBurger">Megaburger</option>
                 <option value="baconBurger">Peekoniburger</option>
@@ -45,7 +78,7 @@ class Test5 extends React.PureComponent {
             </div>
             <div className={"row"}>
               <label htmlFor="drink">Jook</label>
-              <select name="drink">
+              <select name="drink" onChange={this.handleChange}>
                 <option value="">-</option>
                 <option value="coke">Coca-Cola</option>
                 <option value="sprite">Sprite</option>
