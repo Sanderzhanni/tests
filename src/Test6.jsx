@@ -9,6 +9,7 @@ class Test6 extends React.PureComponent {
         fullName:"",
         burger:"",
         drink:"",
+        orders: "",
     };
   }
 
@@ -30,7 +31,11 @@ handleSubmit = (e) =>{
           "Content-Type": "application/json"
       },
   })
-  .then(() => {})
+  .then(res =>  res.json())
+  .then(docs => this.setState({
+    orders: docs
+  })
+  )
   .catch(err =>{
       console.log("err", err);
   });
@@ -68,7 +73,7 @@ handleSubmit = (e) =>{
             </div>
             <div className={"row"}>
               <label htmlFor="burger">Burger</label>
-              <select name="burger" onChange={this.handleChange} value={this.state.fullName}>
+              <select name="burger" onChange={this.handleChange} value={this.state.burger}>
                 <option value="">-</option>
                 <option value="megaBurger">Megaburger</option>
                 <option value="baconBurger">Peekoniburger</option>
@@ -77,7 +82,7 @@ handleSubmit = (e) =>{
             </div>
             <div className={"row"}>
               <label htmlFor="drink">Jook</label>
-              <select name="drink" onChange={this.handleChange} value={this.state.fullName}>
+              <select name="drink" onChange={this.handleChange} value={this.state.drink}>
                 <option value="">-</option>
                 <option value="coke">Coca-Cola</option>
                 <option value="sprite">Sprite</option>
@@ -88,7 +93,7 @@ handleSubmit = (e) =>{
               Otsi
             </button>
           </form>
-          <div>response</div>
+    <div>response{console.log(this.state.orders)}</div>
     <div>{this.state.resfullName}</div>
     <div>{this.state.resburger}</div>
     <div>{this.state.resdrink}</div>
