@@ -1,5 +1,4 @@
 import React from "react";
-import "./css/test3.css";
 import example1 from "./images/1.png";
 import example2 from "./images/2.png";
 import example3 from "./images/3.png";
@@ -67,7 +66,11 @@ handleSubmit = (e) =>{
         <h3>
           Lahendus:
         </h3>
+<<<<<<< HEAD
         <form onSubmit={this.handleSubmit}>
+=======
+        <form style={{width: 300}}>
+>>>>>>> ffc661be6068de16dcf756d5c6bfeb36f3d54eec
           <div className={"row"}>
             <label htmlFor="username">Username</label>
             <input name="username" type="text" value={this.state.username} onChange={this.handleChange}/>
