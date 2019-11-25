@@ -19,7 +19,7 @@ handleChange = (e) =>{
   this.setState({
       [e.target.name]: e.target.value,
   });
-}
+};
 
 handleSubmit = (e) =>{
   console.log(this.state);
@@ -39,7 +39,7 @@ handleSubmit = (e) =>{
   .catch(err =>{
       console.log("err", err);
   });
-}
+};
 
   render() {
     return (

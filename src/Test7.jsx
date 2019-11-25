@@ -1,12 +1,63 @@
 import React from "react";
 
 class Test7 extends React.PureComponent {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            fullName:"",
+            address:"",
+            phoneNumber:"",
+        };
+    }
+
+    handleChange = (e) =>{
+        console.log("value", e.target.value);
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    handleSubmit = (e) =>{
+        console.log(this.state);
+        e.preventDefault();
+        fetch("/api/v1/users/", {
+            method: "POST",
+            body: JSON.stringify(this.state),
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(res =>  res.json())
+            .catch(err =>{
+                console.log("err", err);
+            });
+    };
+
   render() {
     return (
       <div>
         <Task />
-        implement
+          <form className="ds-item style-2" onSubmit={this.handleSubmit}>
+              <div className={"row"}>
+                  <label htmlFor="fullName">Kliendi nimi</label>
+                  <input name="fullName" type="text" onChange={this.handleChange} value={this.state.fullName}/>
+              </div>
+              <div className={"row"}>
+                  <label htmlFor="burger">Aadress</label>
+                  <input name="address" type="text" onChange={this.handleChange} value={this.state.address}/>
+              </div>
+              <div className={"row"}>
+                  <label htmlFor="drink">Phone</label>
+                  <input name="phoneNumber" type="text" onChange={this.handleChange} value={this.state.phone}/>
+              </div>
+              <button style={{width: "100%"}}>
+                  Otsi
+              </button>
+          </form>
       </div>
+
+
     );
   }
 }
