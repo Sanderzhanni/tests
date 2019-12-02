@@ -19,7 +19,22 @@ router.post("/", (req, res)=>{
 });
 
 
-/** Add something here*/
+/** Add if doesnt exist, otherwise update*/
+router.post("/signup", (req, res)=>{
+  const user = new User(req.body);
+  user.updateOne({
+    name: user.fullName,
+    personalCode: user.personalCode,
+    phoneNumber: user.phoneNumber,
+    address: user.address
+  }, {upsert: true}, err =>{
+    if(err) return console.log(err);
+    res.send(200);
+  });
+
+
+
+});
 
 
 module.exports = router;
