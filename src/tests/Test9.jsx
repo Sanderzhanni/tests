@@ -57,7 +57,6 @@ class Test9 extends React.PureComponent {
               <button style={{width: "100%"}}>
                   Signup
               </button>
-
           </form>
       </div>
     );

@@ -20,14 +20,13 @@ router.post("/", (req, res)=>{
 
 
 /** Add if doesnt exist, otherwise update*/
-router.post("/signup", (req, res)=>{
-  const user = new User(req.body);
-  user.updateOne({
-    name: user.fullName,
-    personalCode: user.personalCode,
-    phoneNumber: user.phoneNumber,
-    address: user.address
-  }, {upsert: true}, err =>{
+router.post("/signup", async (req, res)=>{
+  User.updateOne({personalCode: req.body.personalCode},{
+    fullName: req.body.fullName,
+    personalCode: req.body.personalCode,
+    phoneNumber: req.body.phoneNumber,
+    address: req.body.address,
+  },{upsert: true}, err =>{
     if(err) return console.log(err);
     res.send(200);
   });
