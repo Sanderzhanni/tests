@@ -2,14 +2,48 @@ import React from "react";
 import OnlineCount from "../OnlineCount";
 
 class Test11 extends React.PureComponent {
+
   state = {
     onlineCount: 20,
+      delay: 3000,
   };
+
+    componentDidMount() {
+        this.interval = setInterval(this.tick, this.state.delay);
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.delay !== this.state.delay) {
+            clearInterval(this.interval);
+            this.interval = setInterval(this.tick, this.state.delay);
+        }
+    }
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+    tick = () => {
+        this.fetchRandom();
+    };
+
+    fetchRandom = () => {
+        fetch("/api/v1/users/onlineCount")
+            .then( res =>{
+                return res.json();
+            })
+            .then(random =>{
+                this.setState({
+                    onlineCount: random,
+                });
+            })
+            .catch( (err) =>{
+                console.log(err);
+            });
+    };
 
   render() {
     return (
       <div>
         <Task />
+          <button onClick={this.fetchRandom}></button>
         <OnlineCount>{this.state.onlineCount}</OnlineCount>
       </div>
     );
